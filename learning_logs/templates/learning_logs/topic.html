@@ -13,12 +13,18 @@
         <div class="card mb-3">
             <h4 class="card-header">
                 {{ entry.date_added|date:'M d, Y H:i' }}
-                <small>
-                    <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
-                </small>
+                {% if user == entry.owner %}
+                    <small>
+                        <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+                    </small>
+                {% endif %}
             </h4>
 
             <div class="card-body">{{ entry.text|linebreaks }}</div>
+
+            <div class="card-footer text-body-secondary">
+                Written by {{ entry.owner }}
+            </div>            
         </div>
     {% empty %}
         <p>There are no entries for this topic yet.</p>

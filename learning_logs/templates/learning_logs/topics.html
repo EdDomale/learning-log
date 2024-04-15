@@ -9,8 +9,12 @@
         {% for topic in topics %}
             <li class="list-group-item border-0">
                 <a href="{% url 'learning_logs:topic' topic.id %}">
-                    {{ topic.text }}
-                </a>
+                    {% if topic.public != True %}
+                        {{ topic.text }}
+                    {% else %}
+                        {{ topic.text }}<span class="badge rounded-pill text-bg-secondary mx-2">Public</span>
+                    {% endif %}                            
+                </a>                    
             </li>
         {% empty %}
             <li class="list-group-item border-0">No topics have been added yet.</li>
